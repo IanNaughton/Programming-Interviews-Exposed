@@ -1,6 +1,6 @@
 ﻿
-using Chapter4;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Stack;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +50,9 @@ namespace Chapter4Tests
             Assert.AreEqual<int>(3, stack.Pop());
         }
 
+        /// <summary>
+        /// We should probably include at least one negative test :)
+        /// </summary>
         [TestMethod]
         public void WhenPopIsCalledOnAnEmptyStack_AnExceptionIsThrown()
         {

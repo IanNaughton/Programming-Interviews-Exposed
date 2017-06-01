@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chapter4
+namespace Base
 {
-    public class StackItem<T>
+    public class ListItem<T>
     {
-        public StackItem(T newValue)
+        public ListItem(T newValue)
         {
             Value = newValue;
         }
 
-        public StackItem<T> Next { get; set; }
+        public ListItem<T> Next { get; set; }
 
         public T Value { get; set; }
     }
