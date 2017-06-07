@@ -11,6 +11,16 @@ namespace TailPointer
         private ListItem<T> _tail;
 
         /// <summary>
+        /// Just a method to support unit testing around the problem
+        /// </summary>
+        public ListItem<T> Tail {
+            get
+            {
+                return _tail;
+            }
+        }
+
+        /// <summary>
         /// Quick and dirty method to support unit testing :o
         /// </summary>
         /// <param name="valueToFind"></param>
@@ -47,13 +57,72 @@ namespace TailPointer
         }
 
 
-        public bool Delete(T value)
+        public bool Delete(T valueToDelete)
         {
-           
+            // We have a few different scenarios to account for here
 
-            return false;
+            // 1: The list is empty
+            if (ListIsEmpty())
+            {
+                throw new InvalidOperationException("You can't delete items from an empty list ya dingus!");
+            }
+
+            // 2: The list has only one element
+            if (ListHasOneItemAndItIsTheItemToDelete(valueToDelete))
+            {
+                DeleteFirstListItem(valueToDelete);
+                return true;
+            }
+            // 3: The list has n elements
+            else
+            {
+                return FindAndDeleteItem(valueToDelete);
+            }
         }
 
+        public bool ListIsEmpty()
+        {
+            return _head == null;
+        }
+
+        public bool ListHasOneItemAndItIsTheItemToDelete(T valueToDelete)
+        {
+            return _head.Next == null && _head.Value.Equals(valueToDelete);
+        }
+
+        public void DeleteFirstListItem(T valueToDelete)
+        {
+            _head = null;
+            _tail = _head;
+        }
+
+        public bool FindAndDeleteItem(T valueToDelete)
+        {
+            bool itemFound = false;
+
+            IterateOverStack(
+                _head,
+                currentItem => currentItem.Next != null && !currentItem.Next.Value.Equals(valueToDelete),
+                itemBeforeTheItemToDelete =>
+                {
+                    // So if we ended our search on a non-null element, then that means 
+                    // we found what we were looking for! 
+                    if (itemBeforeTheItemToDelete.Next != null)
+                    {
+                        itemBeforeTheItemToDelete.Next = itemBeforeTheItemToDelete.Next.Next;
+                        itemFound = true;
+
+                        // If we deleted the last item in the list, update the tail! 
+                        if (itemBeforeTheItemToDelete.Next == null)
+                        {
+                            _tail = itemBeforeTheItemToDelete;
+                        }
+
+                    }
+                }
+            );
+            return itemFound;
+        }
 
         /// <summary>
         /// I'm really kind of proud of the consistent level of 
@@ -113,7 +182,7 @@ namespace TailPointer
                         // update the tail field! 
                         if (newItem.Next == null)
                         {
-                            _tail = currentItem;
+                            _tail = newItem;
                         }
 
                     }
