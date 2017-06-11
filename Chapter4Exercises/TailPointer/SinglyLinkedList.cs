@@ -68,7 +68,7 @@ namespace TailPointer
             }
 
             // 2: The list has only one element
-            if (ListHasOneItemAndItIsTheItemToDelete(valueToDelete))
+            if (HeadIsItemToDelete(valueToDelete))
             {
                 DeleteFirstListItem(valueToDelete);
                 return true;
@@ -85,15 +85,22 @@ namespace TailPointer
             return _head == null;
         }
 
-        public bool ListHasOneItemAndItIsTheItemToDelete(T valueToDelete)
+        public bool HeadIsItemToDelete(T valueToDelete)
         {
-            return _head.Next == null && _head.Value.Equals(valueToDelete);
+            return _head.Value.Equals(valueToDelete);
         }
 
         public void DeleteFirstListItem(T valueToDelete)
         {
-            _head = null;
-            _tail = _head;
+            if (_head.Next == null)
+            {
+                _head = null;
+                _tail = _head;
+            }
+            else
+            {
+                _head = _head.Next;
+            }
         }
 
         public bool FindAndDeleteItem(T valueToDelete)

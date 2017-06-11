@@ -138,5 +138,36 @@ namespace Chapter4Tests
             Assert.AreEqual<int>(2, listItems[1].Value);
 
         }
+
+        [TestMethod]
+        public void WhenListHasMoreThanOneItemAndHeadItemIsDeleted_DeleteSucceeds()
+        {
+            SinglyLinkedList<int?> list = new SinglyLinkedList<int?>();
+
+            list.InsertAfter(null, 1);
+            list.InsertAfter(1, 2);
+            list.InsertAfter(2, 3);
+            list.Delete(1);
+
+            List<int?> listItems = list.GetElementsOfListInOrder();
+
+            Assert.AreEqual<int>(2, listItems.Count);
+            Assert.AreEqual<int>(2, listItems[0].Value);
+            Assert.AreEqual<int>(3, listItems[1].Value);
+        }
+
+        [TestMethod]
+        public void WhenListHasOneItemAndHeadItemIsDeleted_DeleteSucceeds()
+        {
+            SinglyLinkedList<int?> list = new SinglyLinkedList<int?>();
+
+            list.InsertAfter(null, 1); 
+            list.Delete(1);
+
+            List<int?> listItems = list.GetElementsOfListInOrder();
+
+            Assert.AreEqual<int>(0, listItems.Count);
+            Assert.IsNull(list.Tail);
+        }
     }
 }
