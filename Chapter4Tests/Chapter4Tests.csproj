@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chapter4Exercises\Chapter4Exercises.csproj">
-      <Project>{2d87c367-958f-42f9-a4f1-a805337efa8e}</Project>
+      <Project>{041ea20e-2218-40e8-85d4-af0a1517592f}</Project>
       <Name>Chapter4Exercises</Name>
     </ProjectReference>
   </ItemGroup>
